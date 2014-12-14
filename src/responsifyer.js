@@ -1,6 +1,6 @@
 /*
 Author: Kunuk Nykjaer
-version 0.1
+version 0.11
 
 About: prototype util to make a webpage responsive
 
@@ -13,8 +13,9 @@ to see different results, e.g. if the page uses tables
 var responsifyer;
 (function (config) {
 	responsifyer = {};
-	responsifyer.changeTables = function () {
-		/* Make tables to not be like table anymore */
+	responsifyer.responsifyTables = function () {
+
+		/* Make tables responsive */
 		var $elements = $('table, thead, tbody, th, td, tr');
 		$elements.each(function () {
 			this.style.setProperty('display', 'block', 'important');
@@ -44,8 +45,8 @@ var responsifyer;
 			this.style.setProperty('overflow', 'hidden', 'important');
 		});
 		
-		if (config.changeTables) {
-			responsifyer.changeTables();
+		if (config.responsifyTables) {
+			responsifyer.responsifyTables();
 		}
 
 		$elements = $('pre');
@@ -54,12 +55,13 @@ var responsifyer;
 			this.style.setProperty('word-wrap', 'break-word', 'important');
 		});
 
+		/*
+		// template code for doing stuff on screen size changes
 		var screenInfo = '',
 	    screen = '',
 		small = 'small device',
 		large = 'large device',
-		info = ' - do stuff when size changes - ';
-
+		info = ' - do stuff when size changes - ';		
 		$(window).resize(function () {
 			var width = $(document).width();
 			if (width < 760) {
@@ -76,6 +78,7 @@ var responsifyer;
 				}
 			}
 		});
+		*/
 	}
 
 	function responsifyRecursive(root, $) {
@@ -97,10 +100,10 @@ var responsifyer;
 				$this.removeAttr('width');
 				$this.removeAttr('height');
 
-				if ($this.is('img'))
-					return;
-
-				else {
+				if ($this.is('img')) {
+					// do nothing is handled in  runResponsify()
+					
+				} else {
 					this.style.setProperty('min-width', '0', 'important');
 					this.style.setProperty('min-height', '0', 'important');
 					this.style.setProperty('max-width', '100%', 'important');
@@ -135,4 +138,4 @@ var responsifyer;
 			runResponsify(document, jQuery);
 		}, 1000 * 2); // wait n seconds
 	}
-})({ changeTables: false, changeWidthToAuto: false });
+})({ responsifyTables: false, changeWidthToAuto: false });
