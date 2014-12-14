@@ -14,6 +14,7 @@ var responsifyer;
 (function (config) {
 	responsifyer = {};
 	responsifyer.changeTables = function () {
+		/* Make tables to not be like table anymore */
 		var $elements = $('table, thead, tbody, th, td, tr');
 		$elements.each(function () {
 			this.style.setProperty('display', 'block', 'important');
@@ -22,8 +23,10 @@ var responsifyer;
 
 	function runResponsify(root, $) {
 
+		// Recursive work
 		responsifyRecursive(root, $);
 
+		// Specific work on node elements
 		var $elements = $('img');
 		$elements.each(function () {
 			this.style.setProperty('max-width', '100%', 'important');
@@ -40,13 +43,9 @@ var responsifyer;
 		$elements.each(function () {
 			this.style.setProperty('overflow', 'hidden', 'important');
 		});
-
-		/* Make tables to not be like table anymore */
+		
 		if (config.changeTables) {
-			$elements = $('table, thead, tbody, th, td, tr');
-			$elements.each(function () {
-				this.style.setProperty('display', 'block', 'important');
-			});
+			responsifyer.changeTables();
 		}
 
 		$elements = $('pre');
