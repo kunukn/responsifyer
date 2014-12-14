@@ -55,30 +55,30 @@ var responsifyer;
 			this.style.setProperty('word-wrap', 'break-word', 'important');
 		});
 
-		/*
-		// template code for doing stuff on screen size changes
-		var screenInfo = '',
-	    screen = '',
-		small = 'small device',
-		large = 'large device',
-		info = ' - do stuff when size changes - ';		
-		$(window).resize(function () {
-			var width = $(document).width();
-			if (width < 760) {
-				screen = small;
-				if (screenInfo !== screen) {
-					screenInfo = screen;
-					console.log(width + 'px ' + screenInfo + info + new Date());
-				}
-			} else {
-				screen = large;
-				if (screenInfo !== screen) {
-					screenInfo = screen;
-					console.log(width + 'px ' + screenInfo + info + new Date());
-				}
+	/*
+	// template code for doing stuff on screen size changes
+	var screenInfo = '',
+	screen = '',
+	small = 'small device',
+	large = 'large device',
+	info = ' - do stuff when size changes - ';		
+	$(window).resize(function () {
+		var width = $(document).width();
+		if (width < 760) {
+			screen = small;
+			if (screenInfo !== screen) {
+				screenInfo = screen;
+				console.log(width + 'px ' + screenInfo + info + new Date());
 			}
-		});
-		*/
+		} else {
+			screen = large;
+			if (screenInfo !== screen) {
+				screenInfo = screen;
+				console.log(width + 'px ' + screenInfo + info + new Date());
+			}
+		}
+	});
+	*/
 	}
 
 	function responsifyRecursive(root, $) {
@@ -88,6 +88,7 @@ var responsifyer;
 			// If is element type
 			if (this.nodeType === 1) {
 				var $this = $(this);
+				var t =	this;
 
 				// skip iframe
 				if ($this.is('iframe'))
@@ -104,12 +105,13 @@ var responsifyer;
 					// do nothing is handled in  runResponsify()
 					
 				} else {
-					this.style.setProperty('min-width', '0', 'important');
-					this.style.setProperty('min-height', '0', 'important');
-					this.style.setProperty('max-width', '100%', 'important');
-					this.style.setProperty('max-height', '100%', 'important');
+					this.style.setProperty('min-width', '0','important');
+					this.style.setProperty('min-height','0','important');
+					this.style.setProperty('max-width', '100%','important');
+					this.style.setProperty('max-height','100%','important');
 					if (config.changeWidthToAuto) {
-						this.style.setProperty('width', 'auto', 'important');
+						var t = this; // make source code fit on screen
+						t.style.setProperty('width','auto','important');
 					}
 				}
 
@@ -136,7 +138,8 @@ var responsifyer;
 		// else first load it from a CDN 
 		} else {
 			var jQueryScript = d.createElement('script');
-			jQueryScript.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
+			jQueryScript.src
+				= "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
 			d.getElementsByTagName('head')[0].appendChild(jQueryScript);
 
 			var seconds = 2;
