@@ -14,12 +14,23 @@ var responsifyer;
 (function (config) {
 	responsifyer = {};
 	responsifyer.responsifyTables = function () {
+		var $ = responsifyer.$; // jQuery
 
 		/* Make tables responsive */
+		$elements = $('table');
+		$elements.each(function () {
+			this.style.setProperty('table-layout', 'auto', 'important');
+			this.style.setProperty('width', 'auto', 'important');
+		});
+
+		$elements = $('table th, table td');
+		$elements.each(function () {
+			this.style.setProperty('overflow', 'hidden', 'important');
+		});
 		var $elements = $('table, thead, tbody, th, td, tr');
 		$elements.each(function () {
 			this.style.setProperty('display', 'block', 'important');
-		});
+		});		
 	};
 
 	function runResponsify(root, $) {
@@ -32,17 +43,6 @@ var responsifyer;
 		$elements.each(function () {
 			this.style.setProperty('max-width', '100%', 'important');
 			this.style.setProperty('height', 'auto', 'important');
-		});
-
-		$elements = $('table');
-		$elements.each(function () {
-			this.style.setProperty('table-layout', 'auto', 'important');
-			this.style.setProperty('width', 'auto', 'important');
-		});
-
-		$elements = $('table th, table td');
-		$elements.each(function () {
-			this.style.setProperty('overflow', 'hidden', 'important');
 		});
 		
 		if (config.responsifyTables) {
@@ -119,23 +119,33 @@ var responsifyer;
 		});
 	}
 
-	// Add meta tag
-	var viewPortTag = document.createElement('meta');
-	viewPortTag.id = "viewport";
-	viewPortTag.name = "viewport";
-	viewPortTag.content = "width=device-width, initial-scale=1";
-	document.getElementsByTagName('head')[0].appendChild(viewPortTag);
+	(function(d) {
+		// Add meta tag
+		var viewPortTag = d.createElement('meta');
+		viewPortTag.id = "viewport";
+		viewPortTag.name = "viewport";
+		viewPortTag.content = "width=device-width, initial-scale=1";
+		d.getElementsByTagName('head')[0].appendChild(viewPortTag);
+	})(document);
 
-	if (typeof jQuery !== 'undefined') {
-		runResponsify(document, jQuery);
-	} else {
-		var jquery = document.createElement('script');
-		jquery.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
-		document.getElementsByTagName('head')[0].appendChild(jquery);
+	(function (d) {
+		// if jQuery is available then use it
+		if (typeof jQuery !== 'undefined') {
+			responsifyer.$ = jQuery;
+			runResponsify(d, jQuery);
+		// else first load it from a CDN 
+		} else {
+			var jQueryScript = d.createElement('script');
+			jQueryScript.src = "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
+			d.getElementsByTagName('head')[0].appendChild(jQueryScript);
 
-		setTimeout(function () {
-			// Give time to load jQuery before invoking function
-			runResponsify(document, jQuery);
-		}, 1000 * 2); // wait n seconds
-	}
+			var seconds = 2;
+			setTimeout(function () {
+				// Give time to load jQuery before invoking function
+				responsifyer.$ = jQuery;
+				runResponsify(d, jQuery);
+			}, 1000 * seconds); // wait n seconds
+		}
+	})(document);
+	
 })({ responsifyTables: false, changeWidthToAuto: false });
