@@ -48,7 +48,7 @@ var responsifyer;
 				this.style.setProperty('display', 'block', 'important');
 			});
 		}
-		
+
 		$elements = $('pre');
 		$elements.each(function () {
 			this.style.setProperty('white-space', 'pre-wrap', 'important');
@@ -56,23 +56,24 @@ var responsifyer;
 		});
 
 		var screenInfo = '',
-	    screen = '';
-		$(window).resize(function () {
-			var small = 'small device',
-		        large = 'large device',
-				info = ' - do stuff when size changes - ';
+	    screen = '',
+		small = 'small device',
+		large = 'large device',
+		info = ' - do stuff when size changes - ';
 
-			if ($(document).width() < 760) {				
+		$(window).resize(function () {
+			var width = $(document).width();
+			if (width < 760) {
 				screen = small;
 				if (screenInfo !== screen) {
 					screenInfo = screen;
-					console.log(screenInfo + info + new Date());
+					console.log(width + 'px ' + screenInfo + info + new Date());
 				}
 			} else {
 				screen = large;
 				if (screenInfo !== screen) {
 					screenInfo = screen;
-					console.log(screenInfo + info + new Date());
+					console.log(width + 'px ' + screenInfo + info + new Date());
 				}
 			}
 		});
@@ -135,4 +136,4 @@ var responsifyer;
 			runResponsify(document, jQuery);
 		}, 1000 * 2); // wait n seconds
 	}
-})({changeTables: false, changeWidthToAuto: false});
+})({ changeTables: false, changeWidthToAuto: false });
