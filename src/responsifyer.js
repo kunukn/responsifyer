@@ -88,8 +88,7 @@ var responsifyer;
 			// If is element type
 			if (this.nodeType === 1) {
 				var $this = $(this);
-				var t =	this;
-
+				
 				// skip iframe
 				if ($this.is('iframe'))
 					return;
