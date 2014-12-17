@@ -1,6 +1,6 @@
 /*
 Author: Kunuk Nykjaer
-version 0.11
+version 0.12
 
 About: prototype util to make a webpage responsive
 
@@ -11,7 +11,7 @@ Optionally edit the config data at the bottom of this script
 to see different results, e.g. if the page uses tables
 */
 var responsifyer;
-(function (config) {
++function (config) {
 	responsifyer = {};
 	responsifyer.responsifyTables = function () {
 		var $ = responsifyer.$; // jQuery
@@ -120,19 +120,17 @@ var responsifyer;
 		});
 	}
 
-	(function(d) {
-		// Add meta tag
+	+function (d) {
+		// Add viewport meta tag
 		var viewPortTag = d.createElement('meta');
 		viewPortTag.id = "viewport";
 		viewPortTag.name = "viewport";
 		viewPortTag.content = "width=device-width, initial-scale=1";
 		d.getElementsByTagName('head')[0].appendChild(viewPortTag);
-	})(document);
 
-	(function (d) {
 		// if jQuery is available then use it
 		if (typeof jQuery !== 'undefined') {
-			responsifyer.$ = jQuery;
+			responsifyer.$ = jQuery; // setter injection
 			runResponsify(d, jQuery);
 		// else first load it from a CDN 
 		} else {
@@ -144,10 +142,11 @@ var responsifyer;
 			var seconds = 2;
 			setTimeout(function () {
 				// Give time to load jQuery before invoking function
-				responsifyer.$ = jQuery;
+				responsifyer.$ = jQuery; // setter injection
 				runResponsify(d, jQuery);
 			}, 1000 * seconds); // wait n seconds
 		}
-	})(document);
+	}(document);
 	
-})({ responsifyTables: false, changeWidthToAuto: false });
+	// configuration data
+}({ responsifyTables: false, changeWidthToAuto: false });
