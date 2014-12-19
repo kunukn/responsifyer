@@ -11,7 +11,7 @@ Optionally edit the config data at the bottom of this script
 to see different results, e.g. if the page uses tables
 */
 var responsifyer;
-+function (config) {
+(function (config) {
 	responsifyer = {};
 	responsifyer.responsifyTables = function () {
 		var $ = responsifyer.$; // jQuery
@@ -149,4 +149,4 @@ var responsifyer;
 	}(document);
 	
 	// configuration data
-}({ responsifyTables: false, changeWidthToAuto: false });
+})({ responsifyTables: false, changeWidthToAuto: false });
