@@ -136,7 +136,7 @@ var responsifyer;
 		} else {
 			var jQueryScript = d.createElement('script');
 			jQueryScript.src
-				= "https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
+				= 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js';
 			d.getElementsByTagName('head')[0].appendChild(jQueryScript);
 
 			var seconds = 2;
