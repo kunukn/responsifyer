@@ -1,6 +1,6 @@
 /*
 Author: Kunuk Nykjaer
-version 0.12
+version 0.13
 
 About: prototype util to make a webpage responsive
 
@@ -14,7 +14,8 @@ var responsifyer;
 (function (config) {
 	responsifyer = {};
 	responsifyer.responsifyTables = function () {
-		var $ = responsifyer.$; // jQuery
+		var $ = responsifyer.$ // jQuery
+		, $elements;
 
 		/* Make tables responsive */
 		$elements = $('table');
@@ -27,7 +28,7 @@ var responsifyer;
 		$elements.each(function () {
 			this.style.setProperty('overflow', 'hidden', 'important');
 		});
-		var $elements = $('table, thead, tbody, th, td, tr');
+		$elements = $('table, thead, tbody, th, td, tr');
 		$elements.each(function () {
 			this.style.setProperty('display', 'block', 'important');
 		});		
@@ -100,18 +101,12 @@ var responsifyer;
 				$this.removeAttr('width');
 				$this.removeAttr('height');
 
-				if ($this.is('img')) {
-					// do nothing is handled in  runResponsify()
-					
-				} else {
-					this.style.setProperty('min-width', '0','important');
-					this.style.setProperty('min-height','0','important');
-					this.style.setProperty('max-width', '100%','important');
-					this.style.setProperty('max-height','100%','important');
-					if (config.changeWidthToAuto) {
-						var t = this; // make source code fit on screen
-						t.style.setProperty('width','auto','important');
-					}
+				this.style.setProperty('min-width', '0','important');
+				this.style.setProperty('min-height','0','important');
+				this.style.setProperty('max-width', '100%','important');
+				this.style.setProperty('max-height','100%','important');
+				if (config.changeWidthToAuto) {
+					this.style.setProperty('width','auto','important');
 				}
 
 				// Recursive work on the children
