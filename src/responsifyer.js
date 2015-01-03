@@ -115,7 +115,7 @@ var responsifyer;
 		});
 	}
 
-	+function (d) {
+	!function (d) {
 		// Add viewport meta tag
 		var viewPortTag = d.createElement('meta');
 		viewPortTag.id = "viewport";
@@ -131,7 +131,7 @@ var responsifyer;
 		} else {
 			var jQueryScript = d.createElement('script');
 			jQueryScript.src
-				= 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js';
+				= '//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js';
 			d.getElementsByTagName('head')[0].appendChild(jQueryScript);
 
 			var seconds = 2;
